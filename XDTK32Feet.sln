@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35122.118
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XDTK32Feet", "XDTK32Feet\XDTK32Feet.csproj", "{AB9B1481-5FFB-458E-A09B-4BC42580606B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB9B1481-5FFB-458E-A09B-4BC42580606B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB9B1481-5FFB-458E-A09B-4BC42580606B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB9B1481-5FFB-458E-A09B-4BC42580606B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB9B1481-5FFB-458E-A09B-4BC42580606B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {04836CFB-520A-4811-9971-B20AA607DF69}
+	EndGlobalSection
+EndGlobal
