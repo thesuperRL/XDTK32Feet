@@ -1,6 +1,6 @@
 # XDTK-32Feet Dll
-Source code for the Dll intended to enable Bluetooth for https://github.com/google/xdtk
-Uses code from https://github.com/inthehand/32feet to accomplish Bluetooth detection and connection
+- Source code for the Dll intended to enable Bluetooth for https://github.com/google/xdtk
+- Uses code from https://github.com/inthehand/32feet to accomplish Bluetooth detection and connection
 
 ## Requirements
 Unity -> Edit -> Project Settings -> Player
