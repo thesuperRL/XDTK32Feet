@@ -1,22 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections;
-using System.Collections.Generic;
 using InTheHand.Net;
 using InTheHand.Net.Sockets;
 using InTheHand.Net.Bluetooth;
-using InTheHand.Net.Bluetooth.Sdp;
-using InTheHand.Net.Bluetooth.AttributeIds;
-using System;
-using System.Text;
 using System.IO;
-using System.Net.Sockets;
-using System.Diagnostics;
-using Windows.Media.Protection.PlayReady;
-using System.Runtime.InteropServices.ComTypes;
 
 
 namespace XDTK32Feet
@@ -29,7 +17,9 @@ namespace XDTK32Feet
         public static Stream stream = null;
         public static ArrayList peersNames = new ArrayList();
 
-        public static bool GenerateConnectionToDevice(string androidDeviceName = "XDTKAndroid3")
+        // Generates a connection to the device via name and loop search
+        // Worse option of the two, but kept because it might be useful in specific cases
+        public static bool GenerateConnectionToDevice(string androidDeviceName = "XDTKAndroid")
         {
             cli = new BluetoothClient();
             peers = cli.DiscoverDevices();
@@ -55,15 +45,18 @@ namespace XDTK32Feet
             return true;
         }
 
+        // Generates a connection to the device via name and loop search
+        // Worse option of the two, but kept because it might be useful in specific cases
         public static async void GenerateConnectionUsingPicker()
         {
             cli = new BluetoothClient();
 
-            var picker = new BluetoothDevicePicker();
+            // A picker that borrows the default picker on the device running Unity to pick a bluetooth device
+            // May have some problems with less common devices, but definitely works on Windows and is said to work on Mac too
+            var picker = new BluetoothDevicePicker(); 
+            // Filters can be made within 32Feet's code for specific devices. Be sure to check your device's Service Class before doing a filter
+            // Note: reason the phone filters are not on by default is because they are currently not functioning (32Feet's creator said that the filter was reversed)
             mDevice = await picker.PickSingleDeviceAsync();
-            // Translation to 32Feet
-            // Service Class is Telephony + Object Transfer + Capturing + Network
-            // Device Class is DeviceClass.SmartPhone 
 
             BluetoothEndPoint endPoint = new BluetoothEndPoint(mDevice.DeviceAddress, BluetoothService.SerialPort);
 
@@ -72,6 +65,7 @@ namespace XDTK32Feet
             stream = cli.GetStream();
         }
 
+        // Reads a value from the stream and decodes it into a string
         public static string read()
         {
             byte[] bytes = new byte[1024];
@@ -79,6 +73,7 @@ namespace XDTK32Feet
             return System.Text.Encoding.UTF8.GetString(bytes, 0, bytesRead);
         }
 
+        // Tests detection by asking 32Feet to list all discoverable devices in an ArrayList
         public static ArrayList TestDetection()
         {
             peersNames.Clear();
@@ -94,6 +89,7 @@ namespace XDTK32Feet
             return peersNames;
         }
 
+        // Closes the entire system. Be sure to run this if you want to stop the system
         public static void Close()
         {
             stream.Close();
