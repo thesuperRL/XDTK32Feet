@@ -9,7 +9,7 @@ using System.IO;
 
 namespace XDTK32Feet
 {
-    public static class XDTK32Feet
+    public static class BluetoothReceiver
     {
         public static BluetoothClient cli;
         public static BluetoothDeviceInfo mDevice = null;
@@ -17,36 +17,7 @@ namespace XDTK32Feet
         public static Stream stream = null;
         public static ArrayList peersNames = new ArrayList();
 
-        // Generates a connection to the device via name and loop search
-        // Worse option of the two, but kept because it might be useful in specific cases
-        public static bool GenerateConnectionToDevice(string androidDeviceName = "XDTKAndroid")
-        {
-            cli = new BluetoothClient();
-            peers = cli.DiscoverDevices();
-
-            foreach (var deviceInfo in peers)
-            {
-                if (deviceInfo.DeviceName == androidDeviceName)
-                {
-                    mDevice = deviceInfo;
-                }
-            }
-
-            if (mDevice == null)
-                // Did not find intended device
-                return false;
-
-            BluetoothEndPoint endPoint = new BluetoothEndPoint(mDevice.DeviceAddress, BluetoothService.SerialPort);
-
-            cli.Connect(mDevice.DeviceAddress, Guid.Parse("59a8bede-af7b-49de-b454-e9e469e740ab"));
-
-            stream = cli.GetStream();
-
-            return true;
-        }
-
-        // Generates a connection to the device via name and loop search
-        // Worse option of the two, but kept because it might be useful in specific cases
+        // Generates a connection to the device via a picker
         public static async void GenerateConnectionUsingPicker()
         {
             cli = new BluetoothClient();
@@ -63,14 +34,6 @@ namespace XDTK32Feet
             cli.Connect(mDevice.DeviceAddress, Guid.Parse("59a8bede-af7b-49de-b454-e9e469e740ab"));
 
             stream = cli.GetStream();
-        }
-
-        // Reads a value from the stream and decodes it into a string
-        public static string read()
-        {
-            byte[] bytes = new byte[1024];
-            int bytesRead = stream.Read(bytes, 0, bytes.Length);
-            return System.Text.Encoding.UTF8.GetString(bytes, 0, bytesRead);
         }
 
         // Tests detection by asking 32Feet to list all discoverable devices in an ArrayList
