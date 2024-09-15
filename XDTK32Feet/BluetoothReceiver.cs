@@ -9,16 +9,16 @@ using System.IO;
 
 namespace XDTK32Feet
 {
-    public static class BluetoothReceiver
+    public class BluetoothReceiver
     {
-        public static BluetoothClient cli;
-        public static BluetoothDeviceInfo mDevice = null;
-        public static IReadOnlyCollection<BluetoothDeviceInfo> peers;
-        public static Stream stream = null;
-        public static ArrayList peersNames = new ArrayList();
+        public BluetoothClient cli;
+        public BluetoothDeviceInfo mDevice = null;
+        public IReadOnlyCollection<BluetoothDeviceInfo> peers;
+        public Stream stream = null;
+        public ArrayList peersNames = new ArrayList();
 
         // Generates a connection to the device via a picker
-        public static async void GenerateConnectionUsingPicker()
+        public async void GenerateConnectionUsingPicker()
         {
             cli = new BluetoothClient();
 
@@ -37,7 +37,7 @@ namespace XDTK32Feet
         }
 
         // Tests detection by asking 32Feet to list all discoverable devices in an ArrayList
-        public static ArrayList TestDetection()
+        public ArrayList TestDetection()
         {
             peersNames.Clear();
 
@@ -53,7 +53,7 @@ namespace XDTK32Feet
         }
 
         // Closes the entire system. Be sure to run this if you want to stop the system
-        public static void Close()
+        public void Close()
         {
             stream.Close();
             cli.Close();
