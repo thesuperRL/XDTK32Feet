@@ -16,9 +16,10 @@ namespace XDTK32Feet
         public IReadOnlyCollection<BluetoothDeviceInfo> peers;
         public Stream stream = null;
         public ArrayList peersNames = new ArrayList();
+        public String workingGuid = null;
 
         // Generates a connection to the device via a picker
-        public async void GenerateConnectionUsingPicker()
+        public async void GenerateConnectionUsingPicker(List<string> guidList)
         {
             cli = new BluetoothClient();
 
@@ -31,9 +32,18 @@ namespace XDTK32Feet
 
             BluetoothEndPoint endPoint = new BluetoothEndPoint(mDevice.DeviceAddress, BluetoothService.SerialPort);
 
-            cli.Connect(mDevice.DeviceAddress, Guid.Parse("59a8bede-af7b-49de-b454-e9e469e740ab"));
-
-            stream = cli.GetStream();
+            foreach (var guid in guidList)
+            {
+                try
+                {
+                    cli.Connect(mDevice.DeviceAddress, Guid.Parse(guid));
+                    stream = cli.GetStream();
+                    workingGuid = guid;
+                }
+                catch (Exception ex)
+                {
+                }
+            }
         }
 
         // Tests detection by asking 32Feet to list all discoverable devices in an ArrayList
